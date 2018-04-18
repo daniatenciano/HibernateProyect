@@ -1,6 +1,7 @@
 package es.aytos.hibernate.hibernate.pruebas;
 
-import org.hibernate.mapping.List;
+
+import java.util.List;
 
 import HibernateProyect.HibernateProyect.modelo.*;
 import es.aytos.hibernate.hibernate.repositorio.*;
@@ -11,7 +12,7 @@ public class Pruebas {
 		
 //		modificarPersona(2);
 //		eliminarPersona(3);
-		crearCoche();
+		consultar("Jose", "%arq%", "", null);
 
 	}
 
@@ -81,8 +82,25 @@ public class Pruebas {
 
 
 	 
-	 private static void consultarPersona(String nombre, String apellidos, Integer dni, EstadoCivil estadoCivil) {
-		 final List<Persona> personas = RepositorioPersona.consultar(nombre,apellidos,dni,estadoCivil)
+	 
+	 
+	 public static void consultarPersona(final Integer idPersona) {
+		 final Persona persona = RepositorioPersona.consultarNombreCompleto(idPersona);
+		 
+		 System.out.println(persona.getIdPersona());
+		 System.out.println(persona.getNombre());
+		 System.out.println(persona.getApellidos());
+		 System.out.println(persona.getEstadoCivil());
+		 System.out.println(persona.getEdad());
+		 System.out.println(persona.getDni());
+	 }
+	 
+	 
+	 
+	 private static void consultar(String nombre, String apellidos, String dni, EstadoCivil estadoCivil) {
+		 final List<Persona> personas =  RepositorioPersona.consultar(nombre,apellidos,dni,estadoCivil);
+		 
+		 System.out.println(personas.size());
 	 
 	 }
 }
