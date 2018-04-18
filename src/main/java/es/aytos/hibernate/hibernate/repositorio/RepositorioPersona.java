@@ -114,7 +114,7 @@ public class RepositorioPersona {
 			
 			
 			consulta.setParameter("nombre", nombre);
-			consulta.set
+			
 			
 			
 			
