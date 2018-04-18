@@ -2,7 +2,6 @@ package es.aytos.hibernate.hibernate.repositorio;
 
 import org.hibernate.*;
 import org.hibernate.mapping.List;
-
 import HibernateProyect.HibernateProyect.modelo.*;
 import es.aytos.hibernate.hibernate.util.*;
 
@@ -104,16 +103,16 @@ public class RepositorioPersona {
 	
 	
 
-	public static List<Persona> consultar(String nombre) {
+	public static List<Persona> consultar(String nombre, String apellidos, String dni, EstadoCivil estadoCivil) {
 		final Session sesion = HibernateUtil.getMifactoria().getCurrentSession();
 		
 		try {
 			sesion.beginTransaction();
 			
 			final org.hibernate.query.Query<Persona> consulta = sesion
-					.createQuery("from persona where PER_NOM like :nombre ");
+					.createQuery("from persona where PER_NOM  like :nombre and PER_APE like :apellidos  ");
 			consulta.setParameter("nombre", nombre);
-			return consulta.list();
+			return  consulta.list();
 		}catch(Exception e) {
 			System.out.println("Se ha producido un error consultando a la persona " + e.getMessage());
 			sesion.getTransaction().rollback();
