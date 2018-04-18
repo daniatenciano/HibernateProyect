@@ -1,5 +1,7 @@
 package es.aytos.hibernate.hibernate.pruebas;
 
+import org.hibernate.mapping.List;
+
 import HibernateProyect.HibernateProyect.modelo.*;
 import es.aytos.hibernate.hibernate.repositorio.*;
 
@@ -79,7 +81,8 @@ public class Pruebas {
 
 
 	 
-	 private static void consultarPersona(final String nombre) {
-		 final List<Persona> personas = RepositorioPersona.consultar();
+	 private static void consultarPersona(String nombre, String apellidos, Integer dni, EstadoCivil estadoCivil) {
+		 final List<Persona> personas = RepositorioPersona.consultar(nombre,apellidos,dni,estadoCivil)
+	 
 	 }
 }

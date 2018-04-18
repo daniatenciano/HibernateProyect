@@ -110,8 +110,14 @@ public class RepositorioPersona {
 			sesion.beginTransaction();
 			
 			final org.hibernate.query.Query<Persona> consulta = sesion
-					.createQuery("from persona where PER_NOM  like :nombre and PER_APE like :apellidos  ");
+					.createQuery("from persona where PER_NOM  like :nombre and PER_APE like :apellidos");
+			
+			
 			consulta.setParameter("nombre", nombre);
+			consulta.set
+			
+			
+			
 			return  consulta.list();
 		}catch(Exception e) {
 			System.out.println("Se ha producido un error consultando a la persona " + e.getMessage());
