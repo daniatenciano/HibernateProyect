@@ -1,42 +1,33 @@
 package HibernateProyect.HibernateProyect.modelo;
 
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "A_PER")
-public class Persona extends Usuario{
+@Table(name = "A_CLI")
+public class Cliente extends Usuario{
 
 
-		@Column(name= "PER_NOM",nullable = false, length = 50)
+		
+		@Column(name= "CLI_NOM",nullable = false, length = 50)
 		private String nombre;
 		
-		@Column(name = "PER_APE",nullable = false, length = 250)
+		@Column(name = "CLI_APE",nullable = false, length = 250)
 		private String apellidos;
 		
-		@Column(name = "PER_DNI",nullable = false, length = 9, unique = true)
+		@Column(name = "CLI_DNI",nullable = false, length = 9, unique = true)
 		private String dni;
 		
-		@Column(name = "PER_EDA",nullable = false)
+		@Column(name = "CLI_EDA",nullable = false)
 		private Integer edad;
 		
-		@Column(name = "PER_ECV",nullable = false)
+		@Column(name = "CLI_ECV",nullable = false)
 		@Enumerated
 		private EstadoCivil estadoCivil;
 		
 		
-		@ManyToMany(cascade = CascadeType.ALL)
-		private List<Direccion> direcciones;
-		
-		
-		@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "persona")
-		private Set<Telefono> telefono;
-		
-		
-		 public Persona() {
+		 public Cliente() {
 		 }
+
 
 		public String getNombre() {
 			return nombre;
@@ -85,7 +76,7 @@ public class Persona extends Usuario{
 
 		public void setEstadoCivil(EstadoCivil estadoCivil) {
 			this.estadoCivil = estadoCivil;
-		
 		}
-					 
+		 
+		 
 }

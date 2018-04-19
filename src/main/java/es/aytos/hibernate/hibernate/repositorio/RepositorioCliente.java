@@ -2,21 +2,23 @@ package es.aytos.hibernate.hibernate.repositorio;
 
 import java.util.List;
 
-import org.hibernate.*;
+import org.hibernate.Session;
 
-import HibernateProyect.HibernateProyect.modelo.*;
-import es.aytos.hibernate.hibernate.util.*;
+import HibernateProyect.HibernateProyect.modelo.Cliente;
+import HibernateProyect.HibernateProyect.modelo.EstadoCivil;
+import HibernateProyect.HibernateProyect.modelo.Persona;
+import es.aytos.hibernate.hibernate.util.HibernateUtil;
 
-public class RepositorioPersona {
-
-	public static Integer CrearPersona(final Persona persona) {
+public class RepositorioCliente {
+	
+	public static Integer CrearCliente(final Cliente cliente) {
 
 		final Session sesion = HibernateUtil.getMifactoria().getCurrentSession();
 
 		try {
 			sesion.beginTransaction();
 
-			final Integer idPersona = (Integer) sesion.save(persona);
+			final Integer idPersona = (Integer) sesion.save(cliente);
 
 			sesion.getTransaction().commit();
 
@@ -24,7 +26,7 @@ public class RepositorioPersona {
 
 		} catch (Exception e) {
 
-			System.out.println("Se ha producido un error insertando la persona: " + e.getMessage());
+			System.out.println("Se ha producido un error insertando el cliente: " + e.getMessage());
 			e.printStackTrace();
 			throw new RuntimeException();
 
@@ -32,33 +34,20 @@ public class RepositorioPersona {
 			sesion.close();
 		}
 	}
-
-	public static void modificarPersona(Persona persona) {
+	
+	
+	
+	public static void modificarCliente(Cliente cliente) {
 		final Session sesion = HibernateUtil.getMifactoria().getCurrentSession();
 
 		try {
+	
 			sesion.beginTransaction();
-
-			// sesion.createQuery("Update Persona set per nom = :nombre where per id =
-			// :identificador")
-			// .setParameter("nombre", nombre).setParameter("identificador",
-			// idPersona).executeUpdate();
-
-			// final Persona personaBBDD = (Persona)sesion.createQuery("from Persona where
-			// PER_ID = :idPersona")
-			// .setParameter("idPersona", idPersona).uniqueResult();
-			//
-			// personaBBDD.setNombre(nombre);
-			// personaBBDD.setApellidos("2");
-			// personaBBDD.setDni("111444777A");
-			// personaBBDD.setEdad(55);
-			// personaBBDD.setEstadoCivil(EstadoCivil.VIUDO);
-
-			sesion.saveOrUpdate(persona);
+			sesion.saveOrUpdate(cliente);
 			sesion.getTransaction().commit();
 
 		} catch (Exception e) {
-			System.out.println("Se ha producido un error creando una persona: " + e.getMessage());
+			System.out.println("Se ha producido un error creando un cliente: " + e.getMessage());
 			sesion.getTransaction().rollback();
 			throw new RuntimeException(e);
 
@@ -67,21 +56,21 @@ public class RepositorioPersona {
 		}
 	}
 
-	public static void eliminarPersona(Integer idPersona) {
+	public static void eliminarCliente(Cliente idCliente) {
 
 		final Session sesion = HibernateUtil.getMifactoria().getCurrentSession();
 
 		try {
 			sesion.beginTransaction();
 
-			sesion.createQuery("delete Persona where usu_id = :idPersona").setParameter("idPersona", idPersona)
+			sesion.createQuery("delete Persona where per_id = :idPersona").setParameter("idPersona", idCliente)
 					.executeUpdate();
 
 			// sesion.delete(persona);
 			sesion.getTransaction().commit();
 
 		} catch (Exception e) {
-			System.out.println("Se ha producido un error creando una persona: " + e.getMessage());
+			System.out.println("Se ha producido un error creando un cliente: " + e.getMessage());
 			sesion.getTransaction().rollback();
 			throw new RuntimeException(e);
 
@@ -90,17 +79,17 @@ public class RepositorioPersona {
 		}
 	}
 
-	public static Persona consultarNombreCompleto(Integer idPersona) {
+	
+	public static Cliente consultarNombreCompleto(Integer idCliente) {
 		final Session sesion = HibernateUtil.getMifactoria().getCurrentSession();
 
 		try {
 			sesion.beginTransaction();
 
-			return (Persona) sesion.createQuery("from Persona where usu_id = :idPersona")
-					.setParameter("idPersona", idPersona).uniqueResult();
-			
+			return (Cliente) sesion.createQuery("from Persona where per_id = :idPersona")
+					.setParameter("idPersona", idCliente).uniqueResult();
 		} catch (Exception e) {
-			System.out.println("Se ha producido un error creando una persona: " + e.getMessage());
+			System.out.println("Se ha producido un error creando un cliente: " + e.getMessage());
 			sesion.getTransaction().rollback();
 			throw new RuntimeException();
 		} finally {
@@ -108,7 +97,7 @@ public class RepositorioPersona {
 		}
 	}
 
-	public static List<Persona> consultar(String nombre, String apellidos, String dni, EstadoCivil estadoCivil, String login) {
+	public static List<Cliente> consultar(String nombre, String apellidos, String dni, EstadoCivil estadoCivil) {
 		final Session sesion = HibernateUtil.getMifactoria().getCurrentSession();
 
 		try {
@@ -132,7 +121,7 @@ public class RepositorioPersona {
 				sb.append("and PER_ECV = :estadoCivil");
 			}
 
-			final org.hibernate.query.Query<Persona> consulta = sesion.createQuery(sb.toString());
+			final org.hibernate.query.Query<Cliente> consulta = sesion.createQuery(sb.toString());
 
 			if (!nombre.isEmpty()) {
 				consulta.setParameter("nombre", nombre);
@@ -148,15 +137,11 @@ public class RepositorioPersona {
 				consulta.setParameter("estadoCivil", estadoCivil);
 			}
 			
-//			if(login != null && ) {
-//				consulta.setParameter("login", login);
-//			}
-			
-			
+//			if(login != null &&)
 
 			return consulta.list();
 		} catch (Exception e) {
-			System.out.println("Se ha producido un error consultando a la persona " + e.getMessage());
+			System.out.println("Se ha producido un error consultando a el cliente " + e.getMessage());
 			sesion.getTransaction().rollback();
 			throw new RuntimeException(e);
 		} finally {
@@ -165,3 +150,5 @@ public class RepositorioPersona {
 	}
 
 }
+
+
