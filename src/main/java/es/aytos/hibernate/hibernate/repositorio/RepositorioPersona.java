@@ -96,9 +96,12 @@ public class RepositorioPersona {
 		try {
 			sesion.beginTransaction();
 
-			return (Persona) sesion.createQuery("from Persona where usu_id = :idPersona")
+			 Persona persona =(Persona) sesion.createQuery("from Usuario Usu where Usu.idUsusario = :idPersona")
 					.setParameter("idPersona", idPersona).uniqueResult();
-			
+
+			 
+			 return persona;
+			 
 		} catch (Exception e) {
 			System.out.println("Se ha producido un error creando una persona: " + e.getMessage());
 			sesion.getTransaction().rollback();

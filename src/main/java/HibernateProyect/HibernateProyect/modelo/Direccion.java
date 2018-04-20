@@ -41,12 +41,13 @@ public class Direccion {
 
 	
 	
-	  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	  private List<Persona> personas = new ArrayList<>();
+	@ManyToMany(mappedBy = "direcciones")
+    private List<Persona> propietarios = new ArrayList<>();
+	
 	
 	
 	public List<Persona> getDirecciones() {
-		return personas;
+		return getPersonas();
 	}
 
 	public void setDirecciones(List<Persona> personas) {
@@ -55,6 +56,8 @@ public class Direccion {
 
 	@ManyToMany(mappedBy = "addresses")
     private List<Direccion> owners = new ArrayList<>();
+
+	private List<Persona> personas;
 	
 	
 	public List<Direccion> getOwners() {
@@ -64,6 +67,10 @@ public class Direccion {
 	public void setOwners(List<Direccion> owners) {
 		this.owners = owners;
 	}
+	
+
+	@ManyToMany(mappedBy = "direcciones")
+    private List<Persona> propietarios1 = new ArrayList<>();
 
 	public Direccion() {
 	}
@@ -155,14 +162,25 @@ public class Direccion {
 	}
 
 	public List<Persona> getPersonas() {
-		return personas;
+		return getPersonas();
 	}
 
 	public void setPersonas(List<Persona> personas) {
 		this.personas = personas;
 	}
 
+	public List<Persona> getPropietarios() {
+		return propietarios;
+	}
+
+	public void setPropietarios(List<Persona> propietarios) {
+		this.propietarios = propietarios;
+	}
+		
+
+	
+}
+
 	
 
  
-}
